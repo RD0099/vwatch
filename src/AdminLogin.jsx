@@ -14,16 +14,20 @@ export default function AdminLogin() {
     setError("");
 
     try {
+      // ✅ send as form-data
+      const formData = new FormData();
+      formData.append("email", email);
+      formData.append("password", password);
+
       const res = await axios.post(
         "http://localhost/vwatch/vwatch-backend/admin_login.php",
-        { email, password }, // send as JSON
-        { headers: { "Content-Type": "application/json" } }
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
       );
 
       if (res.data.success) {
-        // store admin in localStorage
         localStorage.setItem("admin", JSON.stringify(res.data.admin));
-        navigate("/admin-dashboard"); // redirect to dashboard
+        navigate("/admin-dashboard");
       } else {
         setError(res.data.message || "Login failed");
       }

@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import "./women.css"; // Assuming you have a CSS file for styling
+import "women.css"; // Assuming you have a CSS file for styling
 
 export default function Women() {
   const [watches, setWatches] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost/vwatch/vwatch-backend/get_watches.php?gender=women")
+      axios.get("http://localhost/vwatch/vwatch-backend/get_watches.php?gender=men")
       .then((res) => setWatches(res.data))
       .catch((err) => console.error(err));
   }, []);
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-6">Women’s Watches</h2>
+      <h2 className="text-2xl font-bold mb-6">Men’s Watches</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {watches.map((watch) => (
           <Link

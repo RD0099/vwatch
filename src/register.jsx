@@ -9,28 +9,24 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-const res = await axios.post(
-  "http://localhost/vwatch/vwatch-backend/register.php",
-  { name, email, password },
-  {
-    headers: { "Content-Type": "application/json" },
-  }
-);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("http://localhost/vwatch/vwatch-backend/register.php", {
+        name,
+        email,
+        password,
+      });
+      setMessage(res.data.message);
 
-    setMessage(res.data.message);
-
-    if (res.data.status === "success") {
-      navigate("/"); 
+      if (res.data.status === "success") {
+        navigate("/"); 
+      }
+    } catch (error) {
+      setMessage("Registration failed: " + error.message);
     }
-  } catch (error) {
-    setMessage("Registration failed: " + error.message);
-  }
-};
-
+  };
 
   return (
      <div className="auth-container">

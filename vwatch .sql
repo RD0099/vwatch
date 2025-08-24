@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 21, 2025 at 12:18 PM
+-- Generation Time: Aug 22, 2025 at 10:57 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -187,7 +187,8 @@ INSERT INTO `users` (`user_id`, `email`, `password`, `status`, `created_at`) VAL
 (3, 'khushi@gmail.com', '$2y$10$dkYmey2tY4hQmJS5oita.O/uNTkxghb9WsmzFEc7m2hOeKosOFwjW', 'active', '2025-08-20 10:23:44'),
 (8, 'drashti@gmail.com', '$2y$10$b7kSI2yyIGa.aPaNwXW2vOyoRU.ZxoYDV96gOvbwqMW0n2WSG8SPK', 'active', '2025-08-20 10:51:48'),
 (9, 'vani@gmail.com', '$2y$10$DjSc39N0VYrzO0ftX0rvouWB8aSmQcKcNkSndqAVVOA8BUKRey/iu', 'active', '2025-08-21 09:13:08'),
-(10, 'radhi@gmail.com', '$2y$10$TzCSv8IHpnx4aUtCHAQ7eeq11.CnWq6ipSXc8qKsU.IGSjKHSUeL6', 'active', '2025-08-21 09:55:04');
+(10, 'radhi@gmail.com', '$2y$10$TzCSv8IHpnx4aUtCHAQ7eeq11.CnWq6ipSXc8qKsU.IGSjKHSUeL6', 'active', '2025-08-21 09:55:04'),
+(11, 'alara@gmail.com', '$2y$10$xQ6OtxowjMeM7ixXaziOW.4xUQgalHdbqhsNh3JfKN61k3Kt92EuK', 'active', '2025-08-22 05:36:32');
 
 -- --------------------------------------------------------
 
@@ -198,10 +199,15 @@ INSERT INTO `users` (`user_id`, `email`, `password`, `status`, `created_at`) VAL
 CREATE TABLE `watches` (
   `watch_id` int(11) NOT NULL,
   `collection_id` int(11) DEFAULT NULL,
+  `brand_id` int(11) DEFAULT NULL,
+  `gender` enum('men','women','kids','couple','unisex') DEFAULT 'unisex',
   `watch_name` varchar(100) NOT NULL,
   `description` text DEFAULT NULL,
+  `image_url` varchar(255) DEFAULT NULL,
   `price` decimal(10,2) NOT NULL,
+  `discount` decimal(5,2) DEFAULT 0.00,
   `stock` int(11) DEFAULT 0,
+  `status` enum('active','inactive') DEFAULT 'active',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -399,7 +405,7 @@ ALTER TABLE `tryon_models`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `watches`

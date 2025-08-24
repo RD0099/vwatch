@@ -1,0 +1,39 @@
+.add-watch {
+  max-width: 400px;
+  margin: 30px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.add-watch h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.add-watch form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.add-watch input,
+.add-watch select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.add-watch button {
+  padding: 10px;
+  border: none;
+  background: #1976d2;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.add-watch button:hover {
+  background: #0d47a1;
+}

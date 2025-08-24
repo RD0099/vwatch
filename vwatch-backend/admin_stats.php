@@ -1,14 +1,33 @@
 <?php
-header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
+require "connection.php"; // include your db connection
 
-echo json_encode([
-    "success" => true,
-    "stats" => [
-        "users" => 12,
-        "watches" => 35,
-        "orders" => 7,
-        "categories" => 4
-    ]
-]);
-?>
+$response = ["success" => false, "stats" => []];
+
+// Users
+$users = $conn->query("SELECT COUNT(*) as total FROM users")->fetch_assoc();
+
+// Watches
+$watches = $conn->query("SELECT COUNT(*) as total FROM watches")->fetch_assoc();
+
+// Orders
+$orders = $conn->query("SELECT COUNT(*) as total FROM orders")->fetch_assoc();
+
+// Categories count
+$categories = [];
+$cats = ["men", "women", "couple", "kids", "smart"];
+foreach ($cats as $c) {
+    $q = $conn->query("SELECT COUNT(*) as total FROM watches WHERE gender='$c'");
+    $row = $q->fetch_assoc();
+    $categories[$c] = $row["total"];
+}
+
+$response["success"] = true;
+$response["stats"] = [
+    "users" => $users["total"],
+    "watches" => $watches["total"],
+    "orders" => $orders["total"],
+    "categories" => $categories
+];
+
+echo json_encode($response);

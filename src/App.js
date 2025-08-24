@@ -28,8 +28,9 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Home from "./home";
 import Women from "./women";
 import WatchDetails from "./WatchDetails";
-import AdminLogin from "./AdminLogin";
-import AdminDashboard from "./AdminDashboard";
+import AdminLogin from "./admin/AdminLogin";
+import AdminDashboard from "./admin/AdminDashboard";
+import AdminCategories from "./admin/AdminCategories";
 
 // user pages
 import Login from "./login";
@@ -58,6 +59,7 @@ export default function App() {
         {/* Admin */}
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/admin-categories" element={<AdminCategories />} />
 
         {/* User */}
         <Route path="/login" element={<Login />} />

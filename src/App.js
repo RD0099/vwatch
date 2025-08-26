@@ -1,74 +1,58 @@
-// import logo from './logo.svg';
-// import './App.css';
+/** @format */
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
+import React from "react";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { ChakraProvider } from "@chakra-ui/react";
 
-// export default App;
-// src/App.jsx
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Home from "./home";
 import Women from "./women";
 import WatchDetails from "./WatchDetails";
+
+// Admin pages
 import AdminLogin from "./admin/AdminLogin";
 import AdminDashboard from "./admin/AdminDashboard";
 import AdminCategories from "./admin/AdminCategories";
 
-// user pages
+// User pages
 import Login from "./login";
 import Register from "./register";
 import Logout from "./logout";
 
+// Layouts
+import AuthLayout from "./layouts/Auth";
+import AdminLayout from "./layouts/Admin";
+import RTLLayout from "./layouts/RTL";
+
 export default function App() {
   return (
-    <BrowserRouter>
-      {/* Navigation
-      <nav style={{ padding: "10px", background: "#eee" }}>
-        <Link to="/">Home</Link> |{" "}
-        <Link to="/women">Women</Link> |{" "}
-        <Link to="/login">Login</Link> |{" "}
-        <Link to="/register">Register</Link> |{" "}
-        <Link to="/logout">Logout</Link>
-      </nav> */}
+    <ChakraProvider>
+      <BrowserRouter>
+        <Switch>
+          {/* Main routes */}
+          <Route exact path="/" component={Home} />
+          <Route path="/women" component={Women} />
+          <Route path="/watch/:id" component={WatchDetails} />
 
-      {/* Routes */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/women" element={<Women />} />
-        <Route path="/watch/:id" element={<WatchDetails />} />
+            {/* Admin routes */}
+            <Route path="/admin-login" component={AdminLogin} />
+            <Route path="/admin-dashboard" component={AdminDashboard} />
+            <Route path="/admin-categories" component={AdminCategories} />
 
-        {/* Admin */}
-        <Route path="/admin-login" element={<AdminLogin />} />
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
-        <Route path="/admin-categories" element={<AdminCategories />} />
+          {/* User routes */}
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <Route path="/logout" component={Logout} />
 
-        {/* User */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/logout" element={<Logout />} />
+          {/* Layout routes */}
+          <Route path="/auth" component={AuthLayout} />
+          <Route path="/admin" component={AdminLayout} />
+          <Route path="/rtl" component={RTLLayout} />
+          <Redirect from={`/`} to="/admin/dashboard" />
 
-        {/* 404 */}
-        <Route path="*" element={<h1>404 Not Found</h1>} />
-      </Routes>
-    </BrowserRouter>
+          {/* 404 */}
+          <Route render={() => <h1>404 - Page Not Found</h1>} />
+        </Switch>
+      </BrowserRouter>
+    </ChakraProvider>
   );
 }

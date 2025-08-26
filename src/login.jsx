@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";   // ✅ useHistory instead of useNavigate
 import "./auth.css";
-
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const navigate = useNavigate();
+
+  const history = useHistory();   // ✅ useHistory hook
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +21,7 @@ export default function Login() {
       setMessage(res.data.message);
 
       if (res.data.status === "success") {
-        navigate("/home"); // redirect to Home page
+        history.push("/home");   // ✅ use history.push instead of navigate
       }
     } catch (error) {
       setMessage("Error: " + error.message);
@@ -34,32 +33,25 @@ export default function Login() {
       <div className="auth-box">
         <h2>Login</h2>
         <form onSubmit={handleSubmit}>
-          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <input 
+            type="email" 
+            placeholder="Email" 
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)} 
+            required 
+          />
+          <input 
+            type="password" 
+            placeholder="Password" 
+            value={password} 
+            onChange={(e) => setPassword(e.target.value)} 
+            required 
+          />
           <button type="submit">Login</button>
         </form>
         {message && <p>{message}</p>}
         <p>Don’t have an account? <Link to="/register">Register</Link></p>
       </div>
     </div>
-    // <div>
-    //   <h2>User Login</h2>
-    //   <form onSubmit={handleSubmit}>
-    //     <input
-    //       type="email"
-    //       placeholder="Email"
-    //       value={email}
-    //       onChange={(e) => setEmail(e.target.value)}
-    //     /><br/>
-    //     <input
-    //       type="password"
-    //       placeholder="Password"
-    //       value={password}
-    //       onChange={(e) => setPassword(e.target.value)}
-    //     /><br/>
-    //     <button type="submit">Login</button>
-    //   </form>
-    //   {message && <p>{message}</p>}
-    // </div>
   );
 }

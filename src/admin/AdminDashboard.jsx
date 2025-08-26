@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";   // ✅ useHistory in v5
 import "./admin.css";
 
 export default function AdminDashboard() {
@@ -11,7 +11,7 @@ export default function AdminDashboard() {
     categories: 0,
   });
 
-  const navigate = useNavigate();
+  const history = useHistory();   // ✅ replace navigate with history
 
   useEffect(() => {
     fetchCounts();
@@ -39,10 +39,10 @@ export default function AdminDashboard() {
       </div>
 
       <div className="actions">
-        <button onClick={() => navigate("/manage-watches")}>Manage Watches</button>
-        <button onClick={() => navigate("/manage-orders")}>Manage Orders</button>
-        <button onClick={() => navigate("/manage-users")}>Manage Users</button>
-        <button onClick={() => navigate("/admin-categories")}>Categories</button>
+        <button onClick={() => history.push("/manage-watches")}>Manage Watches</button>
+        <button onClick={() => history.push("/manage-orders")}>Manage Orders</button>
+        <button onClick={() => history.push("/manage-users")}>Manage Users</button>
+        <button onClick={() => history.push("/admin-categories")}>Categories</button>
       </div>
     </div>
   );

@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";  // ✅ useHistory instead of useNavigate
 import "./admin.css";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
+
+  const history = useHistory();  // ✅ useHistory hook
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +28,7 @@ export default function AdminLogin() {
 
       if (res.data.success) {
         localStorage.setItem("admin", JSON.stringify(res.data.admin));
-        navigate("/admin-dashboard");
+        history.push("/admin-dashboard");  // ✅ replaced navigate with history.push
       } else {
         setError(res.data.message || "Login failed");
       }
